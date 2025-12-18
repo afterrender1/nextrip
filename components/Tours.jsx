@@ -117,7 +117,7 @@ const Tours = () => {
     cursor-pointer
     flex items-center justify-center
     w-11 h-11
-    rounded-full
+    rounded-xl
     bg-slate-100
     text-slate-900
     border border-slate-200
