@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Poppins } from "next/font/google";
+import Link from "next/link";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -40,9 +41,9 @@ const Hero = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-4">
-                        <button className="cursor-pointer px-7 py-3 md:px-8 md:py-4 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-100 transition shadow-lg">
+                        <Link href="/all-packages" className="cursor-pointer px-7 py-3 md:px-8 md:py-4 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-100 transition shadow-lg">
                             Explore Packages
-                        </button>
+                        </Link>
 
                         <button className="cursor-pointer px-7 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition">
                             Contact Us

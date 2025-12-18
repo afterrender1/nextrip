@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { Raleway } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const raleway = Raleway({
     subsets: ["latin"],
@@ -14,7 +15,7 @@ const raleway = Raleway({
 
 const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Packages", href: "/packages" },
+    { name: "Packages", href: "/all-packages" },
     { name: "Events", href: "/events" },
     { name: "About Us", href: "/about" },
     { name: "Articles", href: "/articles" },
@@ -65,8 +66,11 @@ const Navbar = () => {
             <div className="max-w-440 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
+                    <Link href="/">
+
                     <div className="shrink-0">
                         <Image
+
                             src="/images/brandlogo.png"
                             alt="NexTrip Logo"
                             width={150}
@@ -75,13 +79,14 @@ const Navbar = () => {
                             priority
                         />
                     </div>
+                    </Link>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
                             return (
-                                <a
+                                <Link 
                                     key={link.name}
                                     href={link.href}
                                     className={`relative px-5 py-2 font-medium transition-all duration-300 ${raleway.className} ${isActive ? "bg-white text-gray-900 rounded-full shadow-md" : "text-white hover:text-cyan-400"
@@ -91,7 +96,7 @@ const Navbar = () => {
                                     {!isActive && (
                                         <span className="absolute left-1/2 -bottom-1 h-0.5 w-0 bg-cyan-400 transition-all duration-300 group-hover:w-2/3 group-hover:left-1/6" />
                                     )}
-                                </a>
+                                </Link>
                             );
                         })}
                     </div>

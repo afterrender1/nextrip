@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Star, Clock, Users, ArrowRight, MapPin } from "lucide-react";
 import toursData from "../app/data/tour.json";
 import { Poppins, Montserrat } from "next/font/google";
+import Link from "next/link";
 
 const poppins = Poppins({
     weight: ["400",],
@@ -138,11 +139,11 @@ const Tours = () => {
                 </div>
 
                 {/* Bottom CTA */}
-                <div className="mt-20 text-center">
-                    <button className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white font-bold rounded-full hover:bg-cyan-600 shadow-xl shadow-slate-200 transition-all active:scale-95">
+                <div className={`mt-20 text-center ${montserrat.className}`}>
+                    <Link href="/all-packages" className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 text-white  rounded-xl cursor-pointer hover:opacity-90 shadow-xl shadow-slate-200 transition-all active:scale-95">
                         Discover All Tours
                         <ArrowRight size={18} />
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>

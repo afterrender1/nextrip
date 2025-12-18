@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Poppins } from "next/font/google";
+import Link from "next/link";
 
 const poppins = Poppins({
     weight: ["400", "500", "600", "700"],
@@ -36,7 +37,7 @@ const PopularDestinations = () => {
                 {/* Clean Flex/Grid Layout */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                     {destinations.map((dest, idx) => (
-                        <div
+                        <Link href="/all-packages"
                             key={dest.name}
                             className="group relative h-125 overflow-hidden rounded-sm cursor-pointer transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:z-10"
                         >
@@ -69,7 +70,7 @@ const PopularDestinations = () => {
                             <div className="absolute top-4 left-4 text-white/20 text-4xl font-black group-hover:text-white/40 transition-colors">
                                 0{idx + 1}
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
