@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Raleway } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,56 +21,56 @@ const navLinks = [
 ];
 
 const menuVariants = {
-    hidden: {
-        opacity: 0,
-        x: "8%",
-    },
+    hidden: { opacity: 0, x: "8%" },
     visible: {
         opacity: 1,
         x: 0,
-        transition: {
-            duration: 0.45,
-            ease: [0.22, 1, 0.36, 1],
-            when: "beforeChildren",
-            staggerChildren: 0.12,
-        },
+        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], when: "beforeChildren", staggerChildren: 0.12 },
     },
-    exit: {
-        opacity: 0,
-        x: "8%",
-        transition: {
-            duration: 0.3,
-            ease: "easeInOut",
-        },
-    },
+    exit: { opacity: 0, x: "8%", transition: { duration: 0.3, ease: "easeInOut" } },
 };
 
 const linkVariants = {
     hidden: { opacity: 0, y: 14 },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            type: "spring",
-            stiffness: 90,
-            damping: 14,
-        },
-    },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 90, damping: 14 } },
 };
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [showNavbar, setShowNavbar] = useState(true);
+    const [lastScroll, setLastScroll] = useState(0);
     const pathname = usePathname();
 
+    // Hide on scroll down, show on scroll up
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > lastScroll && currentScroll > 80) {
+                // scrolling down
+                setShowNavbar(false);
+            } else {
+                // scrolling up
+                setShowNavbar(true);
+            }
+            setLastScroll(currentScroll);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [lastScroll]);
+
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50">
+        <motion.nav
+            className="fixed top-0 left-0 right-0 z-50 "
+            initial={{ y: 0 }}
+            animate={{ y: showNavbar ? 0 : -120 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        >
             <div className="max-w-440 mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-20">
-
                     {/* Logo */}
                     <div className="shrink-0">
                         <Image
-                            src="/images/logo.png"
+                            src="/images/brandlogo.png"
                             alt="NexTrip Logo"
                             width={150}
                             height={35}
@@ -83,32 +83,16 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
-
                             return (
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    className={`
-                    relative px-5 py-2 font-medium transition-all duration-300
-                    ${raleway.className}
-                    ${isActive
-                                            ? "bg-white text-gray-900 rounded-full shadow-md"
-                                            : "text-white hover:text-cyan-400"
-                                        }
-                    group
-                  `}
+                                    className={`relative px-5 py-2 font-medium transition-all duration-300 ${raleway.className} ${isActive ? "bg-white text-gray-900 rounded-full shadow-md" : "text-white hover:text-cyan-400"
+                                        } group`}
                                 >
                                     {link.name}
-
-                                    {/* Hover underline */}
                                     {!isActive && (
-                                        <span
-                                            className="
-                        absolute left-1/2 -bottom-1 h-0.5 w-0 bg-cyan-400
-                        transition-all duration-300
-                        group-hover:w-2/3 group-hover:left-1/6
-                      "
-                                        />
+                                        <span className="absolute left-1/2 -bottom-1 h-0.5 w-0 bg-cyan-400 transition-all duration-300 group-hover:w-2/3 group-hover:left-1/6" />
                                     )}
                                 </a>
                             );
@@ -163,7 +147,6 @@ const Navbar = () => {
 
                             {navLinks.map((link, index) => {
                                 const isActive = pathname === link.href;
-
                                 return (
                                     <motion.a
                                         key={link.name}
@@ -172,26 +155,15 @@ const Navbar = () => {
                                         onClick={() => setIsOpen(false)}
                                         className="group flex items-baseline space-x-4 w-fit"
                                     >
-                                        <span className="text-gray-500 text-sm font-mono italic">
-                                            0{index + 1}
-                                        </span>
-
+                                        <span className="text-gray-500 text-sm font-mono italic">0{index + 1}</span>
                                         <span
-                                            className={`
-                        relative text-4xl sm:text-5xl font-bold transition-all duration-300
-                        ${isActive
-                                                    ? "text-cyan-400"
-                                                    : "text-white group-hover:text-cyan-400"
-                                                }
-                        tracking-tight group-hover:tracking-wide
-                      `}
+                                            className={`relative text-4xl sm:text-5xl font-bold transition-all duration-300 ${isActive ? "text-cyan-400" : "text-white group-hover:text-cyan-400"
+                                                } tracking-tight group-hover:tracking-wide`}
                                         >
                                             {link.name}
                                             <span
-                                                className={`
-                          absolute left-0 -bottom-2 h-0.5 bg-cyan-400 transition-all duration-300
-                          ${isActive ? "w-full" : "w-0 group-hover:w-full"}
-                        `}
+                                                className={`absolute left-0 -bottom-2 h-0.5 bg-cyan-400 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                                                    }`}
                                             />
                                         </span>
                                     </motion.a>
@@ -199,13 +171,8 @@ const Navbar = () => {
                             })}
 
                             {/* Bottom CTA */}
-                            <motion.div
-                                variants={linkVariants}
-                                className="pt-12 border-t border-white/10 mt-10"
-                            >
-                                <p className="text-gray-400 text-sm mb-1">
-                                    Ready for your next trip?
-                                </p>
+                            <motion.div variants={linkVariants} className="pt-12 border-t border-white/10 mt-10">
+                                <p className="text-gray-400 text-sm mb-1">Ready for your next trip?</p>
                                 <a
                                     href="mailto:book@nexttrip.com"
                                     className="text-white font-medium underline underline-offset-4 decoration-cyan-500 hover:text-cyan-400 transition"
@@ -217,7 +184,7 @@ const Navbar = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </motion.nav>
     );
 };
 

@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Grand Canyon Adventure",
+    "image": "grand.png",
+    "rating": 4.9,
+    "state": "Arizona",
+    "description": "Experience the breathtaking views of one of the world's natural wonders.",
+    "duration": "5 Days",
+    "groupSize": "8-12",
+    "price": 2499
+  },
+  {
+    "name": "California Coast Explorer",
+    "image": "california.png",
+    "rating": 4.8,
+
+    "state": "California",
+    "description": "Drive the iconic Pacific Coast Highway with luxury accommodations.",
+    "duration": "7 Days",
+    "groupSize": "6-10",
+    "price": 3299
+  },
+  {
+    "name": "Hawaiian Paradise Escape",
+    "image": "hawaii.png",
+    "rating": 5.0,
+    "state": "Hawaii",
+    "description": "Island hopping through Maui, Oahu, and the Big Island.",
+    "duration": "10 Days",
+    "groupSize": "4-8",
+    "price": 4999
+  },
+  {
+    "name": "Miami & Florida Keys",
+    "image": "miami.png",
+    "rating": 4.7,
+    "state": "Florida",
+    "description": "Beach life, art deco, and the stunning Florida Keys.",
+    "duration": "6 Days",
+    "groupSize": "8-12",
+    "price": 2899
+  },
+  {
+    "name": "Las Vegas & Beyond",
+    "image": "lasvegas.png",
+    "rating": 4.8,
+    "state": "Nevada",
+    "description": "Entertainment, dining, and day trips to natural wonders.",
+    "duration": "4 Days",
+    "groupSize": "10-15",
+    "price": 1999
+  },
+  {
+    "name": "New York City Experience",
+    "image": "newyork.png",
+    "rating": 4.9,
+    "state": "New York",
+    "description": "Broadway shows, museums, and iconic landmarks.",
+    "duration": "5 Days",
+    "groupSize": "8-12",
+    "price": 2799
+  }
+]
