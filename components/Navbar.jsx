@@ -41,15 +41,12 @@ const Navbar = () => {
     const [lastScroll, setLastScroll] = useState(0);
     const pathname = usePathname();
 
-    // Hide on scroll down, show on scroll up
     useEffect(() => {
         const handleScroll = () => {
             const currentScroll = window.scrollY;
             if (currentScroll > lastScroll && currentScroll > 80) {
-                // scrolling down
                 setShowNavbar(false);
             } else {
-                // scrolling up
                 setShowNavbar(true);
             }
             setLastScroll(currentScroll);
@@ -60,7 +57,7 @@ const Navbar = () => {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 right-0 z-50 "
+            className="fixed top-0 left-0 right-0 z-50  backdrop-blur-md bg-black/15 border-b border-white/10 shadow-md"
             initial={{ y: 0 }}
             animate={{ y: showNavbar ? 0 : -120 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
