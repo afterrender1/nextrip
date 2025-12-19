@@ -112,7 +112,7 @@ const Tours = () => {
                                         </div>
                                     </div>
 
-                                    <button
+                                    <Link href="/book-now"
                                         className="
     cursor-pointer
     flex items-center justify-center
@@ -130,7 +130,7 @@ const Tours = () => {
   "
                                     >
                                         <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-0.5" />
-                                    </button>
+                                    </Link>
 
                                 </div>
                             </div>

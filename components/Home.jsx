@@ -4,6 +4,7 @@ import PopularDestinations from './PopularDestinations'
 import Tours from './Tours'
 import WhyChooseUs from './WhyChooseUs'
 import ContactUs from './ContactUs'
+import BookNow from './BookNow'
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <Tours />
             <WhyChooseUs />
             <ContactUs/>
+            <BookNow/>
 
 
         </>

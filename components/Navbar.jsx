@@ -16,8 +16,8 @@ const raleway = Raleway({
 const navLinks = [
     { name: "Home", href: "/" },
     { name: "Packages", href: "/all-packages" },
-    { name: "About Us", href: "/about" },
-    { name: "Articles", href: "/articles" },
+    // { name: "About Us", href: "/about" },
+    // { name: "Articles", href: "/articles" },
     { name: "Contact", href: "/contact-us" },
 ];
 
