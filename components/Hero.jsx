@@ -45,9 +45,9 @@ const Hero = () => {
                             Explore Packages
                         </Link>
 
-                        <button className="cursor-pointer px-7 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition">
+                        <Link href="contact-us" className="cursor-pointer px-7 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-gray-900 transition">
                             Contact Us
-                        </button>
+                        </Link>
                     </div>
 
                 </div>
