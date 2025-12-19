@@ -25,7 +25,7 @@ export default function Footer() {
                 <div className="flex flex-col items-center mb-12">
                     <Image
                         src="/images/brandlogo.png"
-                        alt="Ajwa Tours Logo"
+                        alt="nextTrip Logo"
                         width={140}
                         height={40}
                         className="object-contain"
@@ -53,10 +53,10 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-semibold mb-6 uppercase tracking-[0.2em] text-xs">Support</h3>
                         <ul className="space-y-4 text-sm">
-                            <li><Link href="/faq" className="hover:text-cyan-400 transition">FAQs</Link></li>
+                            <li><Link href="#" className="hover:text-cyan-400 transition">FAQs</Link></li>
                             <li><Link href="/contact" className="hover:text-cyan-400 transition">Contact</Link></li>
-                            <li><Link href="/privacy" className="hover:text-cyan-400 transition">Privacy Policy</Link></li>
-                            <li><Link href="/terms" className="hover:text-cyan-400 transition">Terms & Conditions</Link></li>
+                            <li><Link href="#" className="hover:text-cyan-400 transition">Privacy Policy</Link></li>
+                            <li><Link href="#" className="hover:text-cyan-400 transition">Terms & Conditions</Link></li>
                         </ul>
                     </div>
 
@@ -68,7 +68,7 @@ export default function Footer() {
                                 <Phone size={16} className="text-cyan-400" /> <span>+1 (555) 123-4567</span>
                             </div>
                             <div className="flex items-center gap-3">
-                                <Mail size={16} className="text-cyan-400" /> <span>support@ajwatours.com</span>
+                                <Mail size={16} className="text-cyan-400" /> <span>support@nexttrip.com</span>
                             </div>
                             <div className="flex items-center gap-3">
                                 <MapPin size={16} className="text-cyan-400" /> <span>New York, USA</span>
@@ -87,8 +87,8 @@ export default function Footer() {
                     <div>
                         <h3 className="text-white font-semibold mb-6 uppercase tracking-[0.2em] text-xs">Quick Links</h3>
                         <ul className="space-y-4 text-sm">
-                            <li><Link href="/booking" className="hover:text-cyan-400 transition">Book Now</Link></li>
-                            <li><Link href="/packages" className="hover:text-cyan-400 transition">All Tours</Link></li>
+                            <li><Link href="#" className="hover:text-cyan-400 transition">Book Now</Link></li>
+                            <li><Link href="/all-packages" className="hover:text-cyan-400 transition">All Tours</Link></li>
                             <li><Link href="/about" className="hover:text-cyan-400 transition">About Us</Link></li>
                             <li><Link href="/contact" className="hover:text-cyan-400 transition">Contact</Link></li>
                         </ul>
@@ -101,7 +101,7 @@ export default function Footer() {
 
                 {/* Bottom */}
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-                    <p>© {new Date().getFullYear()} Ajwa Tours. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Afterrender. All rights reserved.</p>
                     <p className="tracking-widest uppercase">Travel Beyond Limits</p>
                 </div>
 

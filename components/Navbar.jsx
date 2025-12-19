@@ -10,30 +10,38 @@ import Link from "next/link";
 
 const raleway = Raleway({
     subsets: ["latin"],
-    weight: ["400"],
+    weight: ["400", "500", "700"], // Added weights for variety
 });
 
 const navLinks = [
     { name: "Home", href: "/" },
     { name: "Packages", href: "/all-packages" },
-    // { name: "About Us", href: "/about" },
     { name: "Travel Guide", href: "/travel-guide" },
     { name: "Contact", href: "/contact-us" },
 ];
 
 const menuVariants = {
-    hidden: { opacity: 0, x: "8%" },
+    hidden: { opacity: 0, x: "100%" }, // Changed to 100% for cleaner slide-in
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1], when: "beforeChildren", staggerChildren: 0.12 },
+        transition: {
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+            when: "beforeChildren",
+            staggerChildren: 0.1
+        },
     },
-    exit: { opacity: 0, x: "8%", transition: { duration: 0.3, ease: "easeInOut" } },
+    exit: {
+        opacity: 0,
+        x: "100%",
+        transition: { duration: 0.3, ease: "easeInOut" }
+    },
 };
 
 const linkVariants = {
-    hidden: { opacity: 0, y: 14 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 90, damping: 14 } },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 15 } },
 };
 
 const Navbar = () => {
@@ -41,6 +49,15 @@ const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(true);
     const [lastScroll, setLastScroll] = useState(0);
     const pathname = usePathname();
+
+    // Fix 1: Scroll Lock when Menu is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [isOpen]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -57,64 +74,62 @@ const Navbar = () => {
     }, [lastScroll]);
 
     return (
-        <motion.nav
-            className="fixed top-0 left-0 right-0 z-50  backdrop-blur-md bg-black/15 border-b border-white/10 shadow-md"
-            initial={{ y: 0 }}
-            animate={{ y: showNavbar ? 0 : -120 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        >
-            <div className="max-w-440 mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-20">
-                    {/* Logo */}
-                    <Link href="/">
+        <>
+            <motion.nav
+                className="fixed top-0 left-0 right-0 z-60 backdrop-blur-md bg-black/15 border-b border-white/10 shadow-md"
+                initial={{ y: 0 }}
+                animate={{ y: showNavbar ? 0 : -120 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
+                <div className="max-w-400 mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-between h-20">
+                        {/* Logo */}
+                        <Link href="/" className="shrink-0 z-70">
+                            <Image
+                                src="/images/brandlogo.png"
+                                alt="NexTrip Logo"
+                                width={150}
+                                height={35}
+                                className="h-8 md:h-10 w-auto " // Ensures logo is visible on dark glass
+                                priority
+                            />
+                        </Link>
 
-                    <div className="shrink-0">
-                        <Image
+                        {/* Desktop Navigation */}
+                        <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
+                            {navLinks.map((link) => {
+                                const isActive = pathname === link.href;
+                                return (
+                                    <Link
+                                        key={link.name}
+                                        href={link.href}
+                                        className={`relative px-5 py-2 font-medium transition-all duration-300 ${raleway.className} ${isActive ? "bg-white text-gray-900 rounded-full shadow-md" : "text-white hover:text-cyan-400"
+                                            } group`}
+                                    >
+                                        {link.name}
+                                        {!isActive && (
+                                            <span className="absolute left-1/2 -bottom-1 h-0.5 w-0 bg-cyan-400 transition-all duration-300 group-hover:w-2/3 group-hover:left-[16.5%]" />
+                                        )}
+                                    </Link>
+                                );
+                            })}
+                        </div>
 
-                            src="/images/brandlogo.png"
-                            alt="NexTrip Logo"
-                            width={150}
-                            height={35}
-                            className="h-8 md:h-10 w-auto"
-                            priority
-                        />
-                    </div>
-                    </Link>
-
-                    {/* Desktop Navigation */}
-                    <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-                        {navLinks.map((link) => {
-                            const isActive = pathname === link.href;
-                            return (
-                                <Link 
-                                    key={link.name}
-                                    href={link.href}
-                                    className={`relative px-5 py-2 font-medium transition-all duration-300 ${raleway.className} ${isActive ? "bg-white text-gray-900 rounded-full shadow-md" : "text-white hover:text-cyan-400"
-                                        } group`}
-                                >
-                                    {link.name}
-                                    {!isActive && (
-                                        <span className="absolute left-1/2 -bottom-1 h-0.5 w-0 bg-cyan-400 transition-all duration-300 group-hover:w-2/3 group-hover:left-1/6" />
-                                    )}
-                                </Link>
-                            );
-                        })}
-                    </div>
-
-                    {/* Mobile Toggle */}
-                    <div className="md:hidden">
-                        <button
-                            onClick={() => setIsOpen(true)}
-                            className="text-white hover:text-cyan-400 transition"
-                            aria-label="Open menu"
-                        >
-                            <Menu size={28} />
-                        </button>
+                        {/* Mobile Toggle */}
+                        <div className="md:hidden">
+                            <button
+                                onClick={() => setIsOpen(true)}
+                                className="text-white p-2 hover:bg-white/10 rounded-full transition"
+                                aria-label="Open menu"
+                            >
+                                <Menu size={28} />
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </motion.nav>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -122,62 +137,61 @@ const Navbar = () => {
                         initial="hidden"
                         animate="visible"
                         exit="exit"
-                        className="md:hidden fixed inset-0 z-50 bg-[#0a0a0a] flex flex-col"
+                        className="fixed inset-0 z-100 bg-[#0a0a0a] flex flex-col md:hidden"
                     >
-                        {/* Ambient Glow */}
-                        <div className="absolute top-0 right-0 w-1/2 h-full bg-cyan-500/5 blur-[140px] -z-10" />
+                        {/* Background Decoration */}
+                        <div className="absolute top-0 right-0 w-full h-full overflow-hidden -z-10">
+                            <div className="absolute top-[-10%] right-[-10%] w-72 h-72 bg-cyan-500/10 blur-[100px] rounded-full" />
+                            <div className="absolute bottom-[-10%] left-[-10%] w-72 h-72 bg-blue-500/10 blur-[100px] rounded-full" />
+                        </div>
 
-                        {/* Close Button */}
-                        <div className="flex justify-end p-6">
+                        {/* Close Button Header */}
+                        <div className="flex justify-between items-center p-6 border-b border-white/5">
+                            <span className="text-white/40 text-xs font-bold tracking-widest uppercase">Navigation</span>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="text-white hover:rotate-90 transition-transform duration-300"
+                                className="text-white p-2 bg-white/5 rounded-full hover:rotate-90 transition-all duration-300"
                                 aria-label="Close menu"
                             >
-                                <X size={32} />
+                                <X size={24} />
                             </button>
                         </div>
 
-                        {/* Mobile Navigation */}
-                        <div className="flex flex-col justify-center px-10 h-full space-y-8">
-                            <motion.p
-                                variants={linkVariants}
-                                className="text-cyan-500 font-bold uppercase tracking-[0.35em] text-xs mb-6"
-                            >
-                                Menu
-                            </motion.p>
-
+                        {/* Mobile Navigation Links */}
+                        <div className={`flex flex-col justify-center px-8 grow space-y-6 ${raleway.className}`}>
                             {navLinks.map((link, index) => {
                                 const isActive = pathname === link.href;
                                 return (
-                                    <motion.a
-                                        key={link.name}
-                                        variants={linkVariants}
-                                        href={link.href}
-                                        onClick={() => setIsOpen(false)}
-                                        className="group flex items-baseline space-x-4 w-fit"
-                                    >
-                                        <span className="text-gray-500 text-sm font-mono italic">0{index + 1}</span>
-                                        <span
-                                            className={`relative text-4xl sm:text-5xl font-bold transition-all duration-300 ${isActive ? "text-cyan-400" : "text-white group-hover:text-cyan-400"
-                                                } tracking-tight group-hover:tracking-wide`}
+                                    <motion.div key={link.name} variants={linkVariants}>
+                                        <Link
+                                            href={link.href}
+                                            onClick={() => setIsOpen(false)}
+                                            className="group flex items-center space-x-6 w-full"
                                         >
-                                            {link.name}
+                                            <span className="text-cyan-500/40 text-sm font-mono tracking-tighter">0{index + 1}</span>
                                             <span
-                                                className={`absolute left-0 -bottom-2 h-0.5 bg-cyan-400 transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
-                                                    }`}
-                                            />
-                                        </span>
-                                    </motion.a>
+                                                className={`relative text-3xl font-bold transition-all duration-300 ${isActive ? "text-cyan-400" : "text-white group-hover:text-cyan-400"
+                                                    } tracking-tight`}
+                                            >
+                                                {link.name}
+                                                {isActive && (
+                                                    <motion.span
+                                                        layoutId="activeUnderline"
+                                                        className="absolute -left-4 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full"
+                                                    />
+                                                )}
+                                            </span>
+                                        </Link>
+                                    </motion.div>
                                 );
                             })}
 
-                            {/* Bottom CTA */}
-                            <motion.div variants={linkVariants} className="pt-12 border-t border-white/10 mt-10">
-                                <p className="text-gray-400 text-sm mb-1">Ready for your next trip?</p>
+                            {/* Mobile CTA */}
+                            <motion.div variants={linkVariants} className="pt-10 mt-6 border-t border-white/10">
+                                <p className="text-white/40 text-xs uppercase tracking-widest mb-4">Get in touch</p>
                                 <a
                                     href="mailto:book@nexttrip.com"
-                                    className="text-white font-medium underline underline-offset-4 decoration-cyan-500 hover:text-cyan-400 transition"
+                                    className="text-xl text-white font-medium hover:text-cyan-400 transition-colors"
                                 >
                                     book@nexttrip.com
                                 </a>
@@ -186,7 +200,7 @@ const Navbar = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.nav>
+        </>
     );
 };
 
