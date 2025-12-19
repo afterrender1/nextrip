@@ -17,7 +17,7 @@ const navLinks = [
     { name: "Home", href: "/" },
     { name: "Packages", href: "/all-packages" },
     // { name: "About Us", href: "/about" },
-    // { name: "Articles", href: "/articles" },
+    { name: "Travel Guide", href: "/travel-guide" },
     { name: "Contact", href: "/contact-us" },
 ];
 
